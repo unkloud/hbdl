@@ -14,3 +14,4 @@ Options:
  * Check the hash of the downloaded to avoid repetitive download
  * Better logging and error reporting
  * Standalone app / GUI
+ * Automate the pypi publish
