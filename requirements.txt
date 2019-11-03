@@ -1,6 +1,6 @@
-black==19.3b0
+black==19.10b0
 Click==7.0
-keyring==19.0.2
-mypy==0.701
+keyring==19.2.0
+mypy==0.740
 requests==2.22.0
-twine==1.13.0
+twine==2.0.0

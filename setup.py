@@ -6,7 +6,7 @@ import setuptools
 README = (pathlib.Path(__file__).parent / "README.md").read_text()
 setuptools.setup(
     name="hbdl",
-    version="0.0.1",
+    version="0.0.3",
     author="unkloud",
     author_email="unkloud.com.au@gmail.com",
     description="Another humble bundle downloader",
@@ -19,6 +19,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

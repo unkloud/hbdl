@@ -45,14 +45,21 @@ class Downloadable:
                     fname = file_path[1:] if file_path.startswith("/") else file_path
                     yield Downloadable(fname=fname, uri=uri, sha1_hash=struct.get("sha1", ""))
 
-    def download(self, to_dir: PathLike, downloader: str, echo: Callable) -> Path:
+    def download(self, to_dir: PathLike, downloader: str, with_extension: str, dryrun: bool, echo: Callable,) -> Path:
         assert downloader in ("wget", "curl", "python"), "The downloader must be one of (wget, curl, python)"
         (_, netloc, file_path, _, _, _) = urlparse(self.uri)
         assert netloc == "dl.humble.com", "Must be a humble bundle uri"
         dest_file = Path(to_dir) / (file_path[1:] if file_path.startswith("/") else file_path)
-        download_op = _download_op(self, downloader, Path(to_dir))
-        output = download_op()
-        echo(output)
+        if dest_file.name.endswith(with_extension):
+            if not dryrun:
+                download_op = _download_op(self, downloader, Path(to_dir))
+                output = download_op()
+                echo(output)
+            else:
+                echo(f"Skipping {self.uri} -> {dest_file}")
+        else:
+            if dryrun:
+                echo(f"Downloading {self.uri} -> {dest_file}")
         return dest_file
 
 
@@ -122,8 +129,12 @@ def purchased_downloadables(purchase_key: str) -> List[Iterable[Downloadable]]:
 @click.argument("uri", type=str)
 @click.option("--dest-dir", type=click.Path(resolve_path=True), default=".")
 @click.option("--downloader", type=click.Choice(["wget", "curl", "python"]), default="wget")
-def download(uri: str, dest_dir: PathLike, downloader: str):
+@click.option("--with-extension", type=str)
+@click.option("--dryrun", is_flag=True)
+def download(uri: str, dest_dir: PathLike, downloader: str, with_extension: str, dryrun: bool):
     key = uri_to_purchase_key(uri)
     downloables: List[Downloadable] = purchased_downloadables(key)
     for downloable in downloables:
-        downloable.download(dest_dir, downloader, click.echo)
+        downloable.download(
+            to_dir=dest_dir, downloader=downloader, with_extension=with_extension, dryrun=dryrun, echo=click.echo
+        )
