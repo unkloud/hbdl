@@ -56,10 +56,10 @@ class Downloadable:
                 output = download_op()
                 echo(output)
             else:
-                echo(f"Skipping {self.uri} -> {dest_file}")
+                echo(f"Downloading {self.uri} -> {dest_file}")
         else:
             if dryrun:
-                echo(f"Downloading {self.uri} -> {dest_file}")
+                echo(f"Skipping {self.uri} -> {dest_file}")
         return dest_file
 
 
