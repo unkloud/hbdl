@@ -1,7 +1,10 @@
 # Please be noticed that *this file is for the maintainer only*
 
-deps: requirements.txt
+deps: requirements-dev.txt
 	@pip install -U -r requirements.txt
+
+dev_deps:
+	@pip install -U -r requirements-dev.txt
 
 wheel: setup.py
 	@python setup.py sdist bdist_wheel
@@ -19,4 +22,5 @@ install-keyring:
 clean:
 	@rm -rf ./build ./dist ./hbdl.egg-info
 
-.PHONY: deps test-publish publish install-keyring clean
+.PHONY: dev_deps deps test-publish publish install-keyring clean
+.DEFAULT_GOAL:=wheel
