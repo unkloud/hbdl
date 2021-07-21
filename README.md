@@ -4,10 +4,14 @@ A simple [Humble Bundle](https://www.humblebundle.com) downloader, takes a `Humb
 * ```pip install hbdl```
 ## Usage
 ```
-Usage: hbdl [OPTIONS] URI
+Usage: python -m hbdl [OPTIONS] URI
+
 Options:
   --dest-dir PATH
   --downloader [wget|curl|python]
+  --with-extension TEXT           Download only files with extension, default
+                                  to empty string(all files)
+  --dryrun
   --help                          Show this message and exit.
   ```
 ## Todo
