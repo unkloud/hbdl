@@ -45,7 +45,14 @@ class Downloadable:
                     fname = file_path[1:] if file_path.startswith("/") else file_path
                     yield Downloadable(fname=fname, uri=uri, sha1_hash=struct.get("sha1", ""))
 
-    def download(self, to_dir: PathLike, downloader: str, with_extension: str, dryrun: bool, echo: Callable,) -> Path:
+    def download(
+        self,
+        to_dir: PathLike,
+        downloader: str,
+        with_extension: str,
+        dryrun: bool,
+        echo: Callable,
+    ) -> Path:
         assert downloader in ("wget", "curl", "python"), "The downloader must be one of (wget, curl, python)"
         (_, netloc, file_path, _, _, _) = urlparse(self.uri)
         assert netloc == "dl.humble.com", "Must be a humble bundle uri"
@@ -129,7 +136,12 @@ def purchased_downloadables(purchase_key: str) -> List[Iterable[Downloadable]]:
 @click.argument("uri", type=str)
 @click.option("--dest-dir", type=click.Path(resolve_path=True), default=".")
 @click.option("--downloader", type=click.Choice(["wget", "curl", "python"]), default="wget")
-@click.option("--with-extension", type=str)
+@click.option(
+    "--with-extension",
+    type=str,
+    help="Download only files with extension, default to empty string(all files)",
+    default="",
+)
 @click.option("--dryrun", is_flag=True)
 def download(uri: str, dest_dir: PathLike, downloader: str, with_extension: str, dryrun: bool):
     key = uri_to_purchase_key(uri)

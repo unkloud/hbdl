@@ -14,7 +14,7 @@ REQUIRES = [
 
 setuptools.setup(
     name="hbdl",
-    version="0.0.5",
+    version="0.0.6",
     author="unkloud",
     author_email="unkloud.com.au@gmail.com",
     description="Another humble bundle downloader",
