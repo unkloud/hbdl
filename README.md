@@ -1,4 +1,7 @@
 # hbdl the Humble Bundle downloader
+![PyPI](https://img.shields.io/pypi/v/hbdl?label=pypi%20package)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/hbdl)
+
 A simple [Humble Bundle](https://www.humblebundle.com) downloader, takes a `Humble Bundle` product URI (e.g `https://www.humblebundle.com/downloads?key=xxxxxx`) and it takes care of the download from there.
 ## Installation
 * ```pip install hbdl```
